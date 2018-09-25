@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
@@ -14,9 +14,7 @@
 	rel="stylesheet">
 <script src="${APP_PATH}/static/bootstrap/js/bootstrap.min.js"></script>
 <title>信息上报</title>
-<script>
-	
-</script>
+
 </head>
 <body>
 	<h1>信息上报</h1>
@@ -35,14 +33,16 @@
 				<form action="${APP_PATH}/user/login" method="POST">
 					<div class="form-group">
 						<label for="username">用户名</label> <input type="text"
-							class="form-control" id="username_input" placeholder="请输入用户名" name="username">
+							class="form-control" id="username_input" placeholder="请输入用户名"
+							name="username" value="${name }">
 					</div>
 					<div class="form-group">
 						<label for="password">密码</label> <input type="password"
 							class="form-control" id="username_password_input" name="password"
 							placeholder="请输入密码">
 					</div>
-					<button type="submit" class="btn btn-default" id="username_login_btn">登陆</button>
+					<button type="submit" class="btn btn-default"
+						id="username_login_btn">登陆</button>
 					<button type="" class="btn btn-default" id="username_reg_btn">注册</button>
 				</form>
 			</div>
@@ -63,19 +63,14 @@
 			</div>
 		</div>
 	</div>
-<script>
-/*
-	$("#username_login_btn").click(function() {
-		$.ajax({
-			url : "${APP_PATH}/user/login",
-			type : "POST",
-			data : $("#username form").serialize(),
-			success : function(result) {
 
-			}
-		});
-	});
-	*/
-</script>
+	<c:if test="${message!=null}">
+		<script type="text/javascript">
+			alert("${message}");
+		</script>
+
+	</c:if>
 </body>
+<!--  -->
+
 </html>

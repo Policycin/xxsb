@@ -8,5 +8,11 @@
 </head>
 <body>
 <h1>登陆成功</h1>
-</body>
+	<h2>
+		Welcome:${sessionScope.user.username }
+		
+		 
+
+	</h2>
+	</body>
 </html>
