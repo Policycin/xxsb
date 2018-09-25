@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.dao.UploadFileMapper">
+  <resultMap id="BaseResultMap" type="com.gx.bean.UploadFile">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="contributor" jdbcType="VARCHAR" property="contributor" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="authorunit" jdbcType="VARCHAR" property="authorunit" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="suffix" jdbcType="VARCHAR" property="suffix" />
+    <result column="size" jdbcType="BIGINT" property="size" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="summary_cn" jdbcType="VARCHAR" property="summaryCn" />
+    <result column="summary_en" jdbcType="VARCHAR" property="summaryEn" />
+    <result column="local_url" jdbcType="VARCHAR" property="localUrl" />
+    <result column="visit_url" jdbcType="VARCHAR" property="visitUrl" />
+    <result column="is_original" jdbcType="INTEGER" property="isOriginal" />
+    <result column="views" jdbcType="BIGINT" property="views" />
+    <result column="downloads" jdbcType="BIGINT" property="downloads" />
+    <result column="original" jdbcType="VARCHAR" property="original" />
+    <result column="is_news" jdbcType="INTEGER" property="isNews" />
+    <result column="last_modify_time" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_downloadable" jdbcType="INTEGER" property="isDownloadable" />
+    <result column="is_uploadable" jdbcType="INTEGER" property="isUploadable" />
+    <result column="is_visiable" jdbcType="INTEGER" property="isVisiable" />
+    <result column="is_updatable" jdbcType="INTEGER" property="isUpdatable" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="filetype_id" jdbcType="INTEGER" property="filetypeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, contributor, phone, author, authorunit, filename, suffix, size, language, summary_cn, 
+    summary_en, local_url, visit_url, is_original, views, downloads, original, is_news, 
+    last_modify_time, create_time, is_downloadable, is_uploadable, is_visiable, is_updatable, 
+    user_id, category_id, filetype_id
+  </sql>
+  <select id="selectByExample" parameterType="com.gx.bean.UploadFileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from file_tbl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from file_tbl
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gx.bean.UploadFileExample">
+    delete from file_tbl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gx.bean.UploadFile">
+    insert into file_tbl (id, contributor, phone, 
+      author, authorunit, filename, 
+      suffix, size, language, 
+      summary_cn, summary_en, local_url, 
+      visit_url, is_original, views, 
+      downloads, original, is_news, 
+      last_modify_time, create_time, is_downloadable, 
+      is_uploadable, is_visiable, is_updatable, 
+      user_id, category_id, filetype_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{contributor,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{authorunit,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, 
+      #{suffix,jdbcType=VARCHAR}, #{size,jdbcType=BIGINT}, #{language,jdbcType=VARCHAR}, 
+      #{summaryCn,jdbcType=VARCHAR}, #{summaryEn,jdbcType=VARCHAR}, #{localUrl,jdbcType=VARCHAR}, 
+      #{visitUrl,jdbcType=VARCHAR}, #{isOriginal,jdbcType=INTEGER}, #{views,jdbcType=BIGINT}, 
+      #{downloads,jdbcType=BIGINT}, #{original,jdbcType=VARCHAR}, #{isNews,jdbcType=INTEGER}, 
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{isDownloadable,jdbcType=INTEGER}, 
+      #{isUploadable,jdbcType=INTEGER}, #{isVisiable,jdbcType=INTEGER}, #{isUpdatable,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{filetypeId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gx.bean.UploadFile">
+    insert into file_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="contributor != null">
+        contributor,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="authorunit != null">
+        authorunit,
+      </if>
+      <if test="filename != null">
+        filename,
+      </if>
+      <if test="suffix != null">
+        suffix,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="language != null">
+        language,
+      </if>
+      <if test="summaryCn != null">
+        summary_cn,
+      </if>
+      <if test="summaryEn != null">
+        summary_en,
+      </if>
+      <if test="localUrl != null">
+        local_url,
+      </if>
+      <if test="visitUrl != null">
+        visit_url,
+      </if>
+      <if test="isOriginal != null">
+        is_original,
+      </if>
+      <if test="views != null">
+        views,
+      </if>
+      <if test="downloads != null">
+        downloads,
+      </if>
+      <if test="original != null">
+        original,
+      </if>
+      <if test="isNews != null">
+        is_news,
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isDownloadable != null">
+        is_downloadable,
+      </if>
+      <if test="isUploadable != null">
+        is_uploadable,
+      </if>
+      <if test="isVisiable != null">
+        is_visiable,
+      </if>
+      <if test="isUpdatable != null">
+        is_updatable,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="filetypeId != null">
+        filetype_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="contributor != null">
+        #{contributor,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorunit != null">
+        #{authorunit,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null">
+        #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryCn != null">
+        #{summaryCn,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryEn != null">
+        #{summaryEn,jdbcType=VARCHAR},
+      </if>
+      <if test="localUrl != null">
+        #{localUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitUrl != null">
+        #{visitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isOriginal != null">
+        #{isOriginal,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=BIGINT},
+      </if>
+      <if test="downloads != null">
+        #{downloads,jdbcType=BIGINT},
+      </if>
+      <if test="original != null">
+        #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="isNews != null">
+        #{isNews,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDownloadable != null">
+        #{isDownloadable,jdbcType=INTEGER},
+      </if>
+      <if test="isUploadable != null">
+        #{isUploadable,jdbcType=INTEGER},
+      </if>
+      <if test="isVisiable != null">
+        #{isVisiable,jdbcType=INTEGER},
+      </if>
+      <if test="isUpdatable != null">
+        #{isUpdatable,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="filetypeId != null">
+        #{filetypeId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gx.bean.UploadFileExample" resultType="java.lang.Long">
+    select count(*) from file_tbl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update file_tbl
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.contributor != null">
+        contributor = #{record.contributor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorunit != null">
+        authorunit = #{record.authorunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filename != null">
+        filename = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suffix != null">
+        suffix = #{record.suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.size != null">
+        size = #{record.size,jdbcType=BIGINT},
+      </if>
+      <if test="record.language != null">
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summaryCn != null">
+        summary_cn = #{record.summaryCn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summaryEn != null">
+        summary_en = #{record.summaryEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localUrl != null">
+        local_url = #{record.localUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitUrl != null">
+        visit_url = #{record.visitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOriginal != null">
+        is_original = #{record.isOriginal,jdbcType=INTEGER},
+      </if>
+      <if test="record.views != null">
+        views = #{record.views,jdbcType=BIGINT},
+      </if>
+      <if test="record.downloads != null">
+        downloads = #{record.downloads,jdbcType=BIGINT},
+      </if>
+      <if test="record.original != null">
+        original = #{record.original,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNews != null">
+        is_news = #{record.isNews,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastModifyTime != null">
+        last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDownloadable != null">
+        is_downloadable = #{record.isDownloadable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isUploadable != null">
+        is_uploadable = #{record.isUploadable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isVisiable != null">
+        is_visiable = #{record.isVisiable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isUpdatable != null">
+        is_updatable = #{record.isUpdatable,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.filetypeId != null">
+        filetype_id = #{record.filetypeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update file_tbl
+    set id = #{record.id,jdbcType=BIGINT},
+      contributor = #{record.contributor,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      authorunit = #{record.authorunit,jdbcType=VARCHAR},
+      filename = #{record.filename,jdbcType=VARCHAR},
+      suffix = #{record.suffix,jdbcType=VARCHAR},
+      size = #{record.size,jdbcType=BIGINT},
+      language = #{record.language,jdbcType=VARCHAR},
+      summary_cn = #{record.summaryCn,jdbcType=VARCHAR},
+      summary_en = #{record.summaryEn,jdbcType=VARCHAR},
+      local_url = #{record.localUrl,jdbcType=VARCHAR},
+      visit_url = #{record.visitUrl,jdbcType=VARCHAR},
+      is_original = #{record.isOriginal,jdbcType=INTEGER},
+      views = #{record.views,jdbcType=BIGINT},
+      downloads = #{record.downloads,jdbcType=BIGINT},
+      original = #{record.original,jdbcType=VARCHAR},
+      is_news = #{record.isNews,jdbcType=INTEGER},
+      last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      is_downloadable = #{record.isDownloadable,jdbcType=INTEGER},
+      is_uploadable = #{record.isUploadable,jdbcType=INTEGER},
+      is_visiable = #{record.isVisiable,jdbcType=INTEGER},
+      is_updatable = #{record.isUpdatable,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      filetype_id = #{record.filetypeId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gx.bean.UploadFile">
+    update file_tbl
+    <set>
+      <if test="contributor != null">
+        contributor = #{contributor,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorunit != null">
+        authorunit = #{authorunit,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="suffix != null">
+        suffix = #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=BIGINT},
+      </if>
+      <if test="language != null">
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryCn != null">
+        summary_cn = #{summaryCn,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryEn != null">
+        summary_en = #{summaryEn,jdbcType=VARCHAR},
+      </if>
+      <if test="localUrl != null">
+        local_url = #{localUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitUrl != null">
+        visit_url = #{visitUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isOriginal != null">
+        is_original = #{isOriginal,jdbcType=INTEGER},
+      </if>
+      <if test="views != null">
+        views = #{views,jdbcType=BIGINT},
+      </if>
+      <if test="downloads != null">
+        downloads = #{downloads,jdbcType=BIGINT},
+      </if>
+      <if test="original != null">
+        original = #{original,jdbcType=VARCHAR},
+      </if>
+      <if test="isNews != null">
+        is_news = #{isNews,jdbcType=INTEGER},
+      </if>
+      <if test="lastModifyTime != null">
+        last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDownloadable != null">
+        is_downloadable = #{isDownloadable,jdbcType=INTEGER},
+      </if>
+      <if test="isUploadable != null">
+        is_uploadable = #{isUploadable,jdbcType=INTEGER},
+      </if>
+      <if test="isVisiable != null">
+        is_visiable = #{isVisiable,jdbcType=INTEGER},
+      </if>
+      <if test="isUpdatable != null">
+        is_updatable = #{isUpdatable,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="filetypeId != null">
+        filetype_id = #{filetypeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gx.bean.UploadFile">
+    update file_tbl
+    set contributor = #{contributor,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      authorunit = #{authorunit,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      suffix = #{suffix,jdbcType=VARCHAR},
+      size = #{size,jdbcType=BIGINT},
+      language = #{language,jdbcType=VARCHAR},
+      summary_cn = #{summaryCn,jdbcType=VARCHAR},
+      summary_en = #{summaryEn,jdbcType=VARCHAR},
+      local_url = #{localUrl,jdbcType=VARCHAR},
+      visit_url = #{visitUrl,jdbcType=VARCHAR},
+      is_original = #{isOriginal,jdbcType=INTEGER},
+      views = #{views,jdbcType=BIGINT},
+      downloads = #{downloads,jdbcType=BIGINT},
+      original = #{original,jdbcType=VARCHAR},
+      is_news = #{isNews,jdbcType=INTEGER},
+      last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_downloadable = #{isDownloadable,jdbcType=INTEGER},
+      is_uploadable = #{isUploadable,jdbcType=INTEGER},
+      is_visiable = #{isVisiable,jdbcType=INTEGER},
+      is_updatable = #{isUpdatable,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      filetype_id = #{filetypeId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

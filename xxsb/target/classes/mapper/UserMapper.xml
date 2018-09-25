@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.gx.bean.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="permission" jdbcType="INTEGER" property="permission" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="is_downloadable" jdbcType="INTEGER" property="isDownloadable" />
+    <result column="is_uploadable" jdbcType="INTEGER" property="isUploadable" />
+    <result column="is_visible" jdbcType="INTEGER" property="isVisible" />
+    <result column="is_deletable" jdbcType="INTEGER" property="isDeletable" />
+    <result column="is_updatable" jdbcType="INTEGER" property="isUpdatable" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="identity_id" jdbcType="INTEGER" property="identityId" />
+    <result column="max_online" jdbcType="INTEGER" property="maxOnline" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, username, real_name, email, password, permission, create_time, last_login_time, 
+    is_downloadable, is_uploadable, is_visible, is_deletable, is_updatable, avatar, identity_id, 
+    max_online, phone
+  </sql>
+  <sql id="With_Foreign_Column_List">
+  	u.id, u.username, u.real_name, u.email, u.password, u.permission, u.create_time, u.last_login_time, 
+    u.is_downloadable, u.is_uploadable, u.is_visible, u.is_deletable, u.is_updatable, u.avatar, u.identity_id, 
+    u.max_online, u.phone
+  </sql>
+  <select id="selectByExample" parameterType="com.gx.bean.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_tbl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_tbl
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_tbl
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.gx.bean.UserExample">
+    delete from user_tbl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.gx.bean.User">
+    insert into user_tbl (id, username, real_name, 
+      email, password, permission, 
+      create_time, last_login_time, is_downloadable, 
+      is_uploadable, is_visible, is_deletable, 
+      is_updatable, avatar, identity_id, 
+      max_online, phone)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{permission,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{isDownloadable,jdbcType=INTEGER}, 
+      #{isUploadable,jdbcType=INTEGER}, #{isVisible,jdbcType=INTEGER}, #{isDeletable,jdbcType=INTEGER}, 
+      #{isUpdatable,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{identityId,jdbcType=INTEGER}, 
+      #{maxOnline,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gx.bean.User">
+    insert into user_tbl
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="permission != null">
+        permission,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="isDownloadable != null">
+        is_downloadable,
+      </if>
+      <if test="isUploadable != null">
+        is_uploadable,
+      </if>
+      <if test="isVisible != null">
+        is_visible,
+      </if>
+      <if test="isDeletable != null">
+        is_deletable,
+      </if>
+      <if test="isUpdatable != null">
+        is_updatable,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="identityId != null">
+        identity_id,
+      </if>
+      <if test="maxOnline != null">
+        max_online,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        #{permission,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDownloadable != null">
+        #{isDownloadable,jdbcType=INTEGER},
+      </if>
+      <if test="isUploadable != null">
+        #{isUploadable,jdbcType=INTEGER},
+      </if>
+      <if test="isVisible != null">
+        #{isVisible,jdbcType=INTEGER},
+      </if>
+      <if test="isDeletable != null">
+        #{isDeletable,jdbcType=INTEGER},
+      </if>
+      <if test="isUpdatable != null">
+        #{isUpdatable,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="identityId != null">
+        #{identityId,jdbcType=INTEGER},
+      </if>
+      <if test="maxOnline != null">
+        #{maxOnline,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.gx.bean.UserExample" resultType="java.lang.Long">
+    select count(*) from user_tbl
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectOne" parameterType="java.lang.String" resultMap="BaseResultMap">
+  		select 
+  		<include refid="Base_Column_List"/>
+  		from user_tbl 
+  		where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_tbl
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permission != null">
+        permission = #{record.permission,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginTime != null">
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDownloadable != null">
+        is_downloadable = #{record.isDownloadable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isUploadable != null">
+        is_uploadable = #{record.isUploadable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isVisible != null">
+        is_visible = #{record.isVisible,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeletable != null">
+        is_deletable = #{record.isDeletable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isUpdatable != null">
+        is_updatable = #{record.isUpdatable,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.identityId != null">
+        identity_id = #{record.identityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxOnline != null">
+        max_online = #{record.maxOnline,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_tbl
+    set id = #{record.id,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      permission = #{record.permission,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      is_downloadable = #{record.isDownloadable,jdbcType=INTEGER},
+      is_uploadable = #{record.isUploadable,jdbcType=INTEGER},
+      is_visible = #{record.isVisible,jdbcType=INTEGER},
+      is_deletable = #{record.isDeletable,jdbcType=INTEGER},
+      is_updatable = #{record.isUpdatable,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      identity_id = #{record.identityId,jdbcType=INTEGER},
+      max_online = #{record.maxOnline,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gx.bean.User">
+    update user_tbl
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="permission != null">
+        permission = #{permission,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDownloadable != null">
+        is_downloadable = #{isDownloadable,jdbcType=INTEGER},
+      </if>
+      <if test="isUploadable != null">
+        is_uploadable = #{isUploadable,jdbcType=INTEGER},
+      </if>
+      <if test="isVisible != null">
+        is_visible = #{isVisible,jdbcType=INTEGER},
+      </if>
+      <if test="isDeletable != null">
+        is_deletable = #{isDeletable,jdbcType=INTEGER},
+      </if>
+      <if test="isUpdatable != null">
+        is_updatable = #{isUpdatable,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="identityId != null">
+        identity_id = #{identityId,jdbcType=INTEGER},
+      </if>
+      <if test="maxOnline != null">
+        max_online = #{maxOnline,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gx.bean.User">
+    update user_tbl
+    set username = #{username,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      permission = #{permission,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      is_downloadable = #{isDownloadable,jdbcType=INTEGER},
+      is_uploadable = #{isUploadable,jdbcType=INTEGER},
+      is_visible = #{isVisible,jdbcType=INTEGER},
+      is_deletable = #{isDeletable,jdbcType=INTEGER},
+      is_updatable = #{isUpdatable,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      identity_id = #{identityId,jdbcType=INTEGER},
+      max_online = #{maxOnline,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
