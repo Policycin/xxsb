@@ -25,14 +25,14 @@ public class UserTest {
 	SqlSession sqlSession;
 	@Autowired
 	UserMapper userMapper;
-	@Test
+	
 	public void TestSelect(){
 		UserMapper mapper=sqlSession.getMapper(UserMapper.class);
 		User selectByPrimaryKey = mapper.selectOne("admin");
 		System.out.println(selectByPrimaryKey);
 		
 	}
-	
+	@Test
 	public void testCRUD(){
 		
 		IdentityMapper mapper=sqlSession.getMapper(IdentityMapper.class);
@@ -42,7 +42,7 @@ public class UserTest {
 		identity.setIdentity(str);
 		Date date=new Date();
 		identity.setCreateTime(date); 
-		identity.setUnit("中国国信信息总公司");
+		identity.setUnit("国家信息中心");
 		mapper.insertSelective(identity);
 		
 		System.out.println("insert success");

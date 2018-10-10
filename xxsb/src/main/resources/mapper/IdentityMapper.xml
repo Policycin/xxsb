@@ -90,6 +90,12 @@
     from identity_tbl
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByIdentity" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List"/>
+  	from identity_tbl
+  	where identity=#{identity,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from identity_tbl
     where id = #{id,jdbcType=INTEGER}

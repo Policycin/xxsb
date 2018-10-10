@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
@@ -43,7 +43,8 @@
 					</div>
 					<button type="submit" class="btn btn-default"
 						id="username_login_btn">登陆</button>
-					<button type="" class="btn btn-default" id="username_reg_btn">注册</button>
+					<button type="button" class="btn btn-default" data-toggle="modal"
+						data-target="#pmtcode">注册</button>
 				</form>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="email">
@@ -57,7 +58,7 @@
 							class="form-control" id="email_password_input"
 							placeholder="请输入密码">
 					</div>
-					<button type="" class="btn btn-default" id="email_login_btn">登陆</button>
+					<button type="submit" class="btn btn-default" id="email_login_btn">登陆</button>
 					<button type="" class="btn btn-default" id="email_reg_btn">注册</button>
 				</form>
 			</div>
@@ -70,6 +71,32 @@
 		</script>
 
 	</c:if>
+	<div class="modal fade" id="pmtcode" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">请输入邀请码</h4>
+				</div>
+				<form action="${APP_PATH }/user/reg" method="POST">
+					<div class="modal-body">
+						<input type="text" class="form-control" name="identity"/>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">
+							<!--  <a href="${APP_PATH}/user/reg" style="color: black">确定</a>-->
+							<a style="color:black">确定</a>
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 <!--  -->
 

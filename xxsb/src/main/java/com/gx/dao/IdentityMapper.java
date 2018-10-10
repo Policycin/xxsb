@@ -27,4 +27,6 @@ public interface IdentityMapper {
     int updateByPrimaryKeySelective(Identity record);
 
     int updateByPrimaryKey(Identity record);
+
+	Identity selectByIdentity(String identity);
 }
